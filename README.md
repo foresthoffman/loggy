@@ -43,7 +43,7 @@ func main() {
 	logger := loggy.New(os.Stdout, os.Stderr, "myPrefix", loggy.LevelCritical)
 	
 	// Send a standard message to stdout.
-	logger.Log(loggy.LevelStd, "hello!")
+	logger.Std("hello!")
 	
 	// - Use custom stdout/stderr
 	// - Only show messages that are information, warnings, critical, or standard.
@@ -52,11 +52,11 @@ func main() {
 	logger = loggy.New(stdout, stderr, "", loggy.LevelInfo)
 	
 	// Send an error message, with the tag "error", to the custom stderr buffer.
-	logger.Log(loggy.LevelCritical, "something went wrong!", "error")
+	logger.Critical("something went wrong!", "error")
 
 	// Send a debug message to the custom stdout buffer. This message will be ignored
 	// because of the provided threshold.
-	logger.Log(loggy.LevelDebug, "get the fly swatter!")
+	logger.Debug("get the fly swatter!")
 }
 ```
 

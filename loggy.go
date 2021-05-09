@@ -113,3 +113,53 @@ func (l *Logger) Logf(severity int, fn, message string, tags ...string) {
 		l.Stderr.Println(LevelNames[severity], fn, string(tagsList), message)
 	}
 }
+
+// Std sends a standard log message.
+func (l *Logger) Std(message string, tags ...string) {
+	l.Log(LevelStd, message, tags...)
+}
+
+// Stdf sends a standard log message, with a custom function name.
+func (l *Logger) Stdf(fn, message string, tags ...string) {
+	l.Logf(LevelStd, fn, message, tags...)
+}
+
+// Critical sends a critical error message.
+func (l *Logger) Critical(message string, tags ...string) {
+	l.Log(LevelCritical, message, tags...)
+}
+
+// Criticalf sends a critical error message, with a custom function name.
+func (l *Logger) Criticalf(fn, message string, tags ...string) {
+	l.Logf(LevelCritical, fn, message, tags...)
+}
+
+// Warning sends a warning error message.
+func (l *Logger) Warning(message string, tags ...string) {
+	l.Log(LevelWarning, message, tags...)
+}
+
+// Warningf sends a warning error message, with a custom function name.
+func (l *Logger) Warningf(fn, message string, tags ...string) {
+	l.Logf(LevelWarning, fn, message, tags...)
+}
+
+// Info sends a info log message.
+func (l *Logger) Info(message string, tags ...string) {
+	l.Log(LevelInfo, message, tags...)
+}
+
+// Infof sends a info log message, with a custom function name.
+func (l *Logger) Infof(fn, message string, tags ...string) {
+	l.Logf(LevelInfo, fn, message, tags...)
+}
+
+// Debug sends a debug log message.
+func (l *Logger) Debug(message string, tags ...string) {
+	l.Log(LevelDebug, message, tags...)
+}
+
+// Debugf sends a debug log message, with a custom function name.
+func (l *Logger) Debugf(fn, message string, tags ...string) {
+	l.Logf(LevelDebug, fn, message, tags...)
+}
