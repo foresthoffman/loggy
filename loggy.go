@@ -4,14 +4,12 @@
 // lost by accident.
 //
 // ## Split stdout and stderr:
-// ```
+//
 // logger := loggy.New(os.Stdout, os.Stderr, "myPrefix", loggy.LevelInfo)
-// ```
 //
 // ## Combined stdout and stderr:
-// ```
+//
 // logger := loggy.New(os.Stdout, os.Stdout, "myPrefix", loggy.LevelInfo)
-// ```
 package loggy
 
 import (
