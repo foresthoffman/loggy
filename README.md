@@ -1,5 +1,7 @@
 # 🌲 Loggy 🌲
 
+![Current project build status](https://github.com/foresthoffman/loggy/actions/workflows/go.yml/badge.svg)
+
 Loggy wraps the standard log.Logger structure with some additional fields, to standardize stdout and stderr output. Based on the "severity" of any given log, loggy redirects logs to stdout while redirecting errors to stderr. The desired logging level, or "threshold", shared between the two output streams filters the output messages. If a log or error message doesn't fall on or under the desired threshold, then that message is ignored. Messages with the "standard" severity are always displayed.
 
 ### Installation
