@@ -58,4 +58,8 @@ func main() {
 }
 ```
 
+### Testing
+
+Run `go test -v -count=1 ./...` in the project root directory. Use the `-count=1` to force the tests to run un-cached.
+
 _That's all, enjoy!_
