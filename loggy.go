@@ -9,7 +9,7 @@
 //
 // ## Combined stdout and stderr:
 //
-// logger := loggy.New(os.Stdout, os.Stdout, "myPrefix", loggy.LevelInfo)
+// logger := loggy.NewCombined(os.Stdout, "myPrefix", loggy.LevelInfo)
 package loggy
 
 import (
@@ -56,6 +56,10 @@ func New(stdout, stderr io.Writer, prefix string, threshold int) *Logger {
 		Stderr:    log.New(stderr, prefix, log.LstdFlags),
 		Threshold: threshold,
 	}
+}
+
+func NewCombined(out io.Writer, prefix string, threshold int) *Logger {
+	return New(out, out, prefix, threshold)
 }
 
 // Log gathers the provided message metadata and tries to capture the name of the
