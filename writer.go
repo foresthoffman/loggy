@@ -1,7 +1,6 @@
 package loggy
 
 import (
-	"errors"
 	"io"
 )
 
@@ -32,7 +31,6 @@ func NewWriter(out io.Writer, fn WriteFn) *Writer {
 
 func (w *Writer) Write(p []byte) (n int, err error) {
 	if len(p) == 0 {
-		err = errors.New("nothing to write")
 		return
 	}
 	err = w.handler(w.out, p)
