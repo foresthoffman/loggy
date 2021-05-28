@@ -76,7 +76,7 @@ func (l *Logger) Log(severity int, message string, tags ...string) {
 	}
 
 	var fn string
-	pc, _, _, ok := runtime.Caller(1)
+	pc, _, _, ok := runtime.Caller(2)
 	if !ok {
 		if severity == LevelDebug {
 			l.Logf(LevelDebug, "loggy.Logger.Log", "failed to dynamically lookup function name")
