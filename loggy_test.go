@@ -23,7 +23,7 @@ var logTestCases = []struct {
 		Prefix:              "~~~",
 		Severity:            LevelStd,
 		Threshold:           LevelDebug,
-		ExpectedStdoutRegex: regexp.MustCompile(`~~~[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} OUT loggy\.TestLogger_Log\.func1 \[] what comes before\?\n`),
+		ExpectedStdoutRegex: regexp.MustCompile(`~~~[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} OUT testing.tRunner \[] what comes before\?\n`),
 		ExpectedStderrRegex: nil,
 	},
 	{
@@ -33,7 +33,7 @@ var logTestCases = []struct {
 		Prefix:              "",
 		Severity:            LevelStd,
 		Threshold:           LevelDebug,
-		ExpectedStdoutRegex: regexp.MustCompile(`[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} OUT loggy\.TestLogger_Log\.func1 \[] just testing\n`),
+		ExpectedStdoutRegex: regexp.MustCompile(`[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} OUT testing.tRunner \[] just testing\n`),
 		ExpectedStderrRegex: nil,
 	},
 	{
@@ -43,7 +43,7 @@ var logTestCases = []struct {
 		Prefix:              "",
 		Severity:            LevelStd,
 		Threshold:           LevelStd,
-		ExpectedStdoutRegex: regexp.MustCompile(`[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} OUT loggy\.TestLogger_Log\.func1 \[super standard] just testing 2\n`),
+		ExpectedStdoutRegex: regexp.MustCompile(`[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} OUT testing.tRunner \[super standard] just testing 2\n`),
 		ExpectedStderrRegex: nil,
 	},
 	{
@@ -53,7 +53,7 @@ var logTestCases = []struct {
 		Prefix:              "",
 		Severity:            LevelStd,
 		Threshold:           LevelCritical,
-		ExpectedStdoutRegex: regexp.MustCompile(`[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} OUT loggy\.TestLogger_Log\.func1 \[still, very, standard] just testing 3\n`),
+		ExpectedStdoutRegex: regexp.MustCompile(`[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} OUT testing.tRunner \[still, very, standard] just testing 3\n`),
 		ExpectedStderrRegex: nil,
 	},
 	{
@@ -64,7 +64,7 @@ var logTestCases = []struct {
 		Severity:            LevelWarning,
 		Threshold:           LevelInfo,
 		ExpectedStdoutRegex: nil,
-		ExpectedStderrRegex: regexp.MustCompile(`[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} WARN loggy\.TestLogger_Log\.func1 \[warning] something is not right\n`),
+		ExpectedStderrRegex: regexp.MustCompile(`[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} WARN testing.tRunner \[warning] something is not right\n`),
 	},
 	{
 		Name:                "critical-severity-critical-threshold",
@@ -74,7 +74,7 @@ var logTestCases = []struct {
 		Severity:            LevelCritical,
 		Threshold:           LevelCritical,
 		ExpectedStdoutRegex: nil,
-		ExpectedStderrRegex: regexp.MustCompile(`[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} CRIT loggy\.TestLogger_Log\.func1 \[] BOOM\n`),
+		ExpectedStderrRegex: regexp.MustCompile(`[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} CRIT testing.tRunner \[] BOOM\n`),
 	},
 	{
 		Name:                "critical-severity-standard-threshold",
