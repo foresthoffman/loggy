@@ -25,6 +25,39 @@ import(
 )
 ```
 
+### Log Levels
+
+The logger's `Threshold` is an integer that determines what severities (e.g. "log levels") are output and which are ignored. Users may assign whatever context and importance they deem fit to the log levels; however, Critical-level and Warning-level logs will be output to the provided stderr regardless. In descending order the available log levels are:
+
+- Standard
+  - Labeled "OUT".
+  - Typically, just standard output of no particular importance.
+- Critical
+  - Labeled "CRIT".
+  - Typically, indicates a fatal issue.
+- Warning
+  - Labeled "WARN".
+  - Typically, indicates an issue that may require intervention.
+- Info
+  - Labeled "INFO".
+  - Typically, indicates generic runtime information.
+- Debug
+  - Labeled "DEBUG".
+  - Typically, indicates debug output.
+
+For example, with a `Logger.Threshold` of `LevelCritical`, only logs the following severities would be output:
+
+- Standard
+  - Sent to stdout.
+- Critical
+  - Sent to stderr.
+
+Likewise, if the `Logger.Threshold` was `LevelInfo`, all logs would be output except for those with a severity of Debug.
+
+### Disabling Logging
+
+Providing a `Logger.Threshold` < 0 will disable logging entirely. This behaves similarly to a standard `--quiet` CLI flag.
+
 ### Usage
 
 ```go

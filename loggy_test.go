@@ -116,6 +116,16 @@ var logTestCases = []struct {
 		ExpectedStdoutRegex: nil,
 		ExpectedStderrRegex: nil,
 	},
+	{
+		Name:                "standard-severity-negative-threshold",
+		Message:             "Nothing to see here",
+		Tags:                nil,
+		Prefix:              "",
+		Severity:            LevelStd,
+		Threshold:           -1,
+		ExpectedStdoutRegex: nil,
+		ExpectedStderrRegex: nil,
+	},
 }
 
 func TestLogger_Log(t *testing.T) {

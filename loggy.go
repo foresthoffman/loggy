@@ -48,9 +48,6 @@ var LevelNames = []string{"OUT", "CRIT", "WARN", "INFO", "DEBUG"}
 // threshold determines what level of verbosity the provided stream will receive.
 // Default threshold only captures standard output and critical errors.
 func New(stdout, stderr io.Writer, prefix string, threshold int) *Logger {
-	if threshold < 0 {
-		threshold = LevelCritical
-	}
 	return &Logger{
 		Stdout:    log.New(stdout, prefix, log.LstdFlags),
 		Stderr:    log.New(stderr, prefix, log.LstdFlags),
@@ -68,6 +65,9 @@ func NewCombined(out io.Writer, prefix string, threshold int) *Logger {
 // calling function cannot be captured, and the severity happens to be set to
 // debug, an internal debug log will be sent accordingly.
 func (l *Logger) Log(severity int, message string, tags ...string) {
+	if l.Threshold < 0 {
+		return
+	}
 	if severity < 0 || severity+1 > len(LevelNames) {
 		severity = LevelStd
 	}
@@ -92,6 +92,9 @@ func (l *Logger) Log(severity int, message string, tags ...string) {
 // Logf gathers the provided message metadata and writes the compiled message to
 // either standard out or standard error, depending on severity.
 func (l *Logger) Logf(severity int, fn, message string, tags ...string) {
+	if l.Threshold < 0 {
+		return
+	}
 	if severity < 0 || severity+1 > len(LevelNames) {
 		severity = LevelStd
 	}
