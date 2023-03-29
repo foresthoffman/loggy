@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-var timestampRegexp = `[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}-[0-9]{2}:[0-9]{2}`
+var timestampRegexp = `[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(-[0-9]{2}:[0-9]{2}|Z)`
 
 var logTestCases = []struct {
 	Name                string
