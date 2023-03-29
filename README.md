@@ -35,6 +35,9 @@ The logger's `Threshold` is an integer that determines what severities (e.g. "lo
 - Critical
   - Labeled "CRIT".
   - Typically, indicates a fatal issue.
+- Error
+  - Labeled "ERROR".
+  - Typically, indicates a general issue that was recovered.
 - Warning
   - Labeled "WARN".
   - Typically, indicates an issue that may require intervention.
@@ -45,14 +48,14 @@ The logger's `Threshold` is an integer that determines what severities (e.g. "lo
   - Labeled "DEBUG".
   - Typically, indicates debug output.
 
-For example, with a `Logger.Threshold` of `LevelCritical`, only logs the following severities would be output:
+For example, with a threshold of `LevelCritical`, only logs the following severities would be output:
 
 - Standard
   - Sent to stdout.
 - Critical
   - Sent to stderr.
 
-Likewise, if the `Logger.Threshold` was `LevelInfo`, all logs would be output except for those with a severity of Debug.
+Likewise, if the threshold was `LevelInfo`, all logs would be output except for those with a severity of Debug.
 
 ### Disabling Logging
 
@@ -64,32 +67,46 @@ Providing a `Logger.Threshold` < 0 will disable logging entirely. This behaves s
 package main
 
 import (
-	"github.com/foresthoffman/loggy"
-	"os"
-	"bytes"
+  "bytes"
+  "context"
+  "errors"
+  "fmt"
+  "github.com/foresthoffman/loggy"
 )
 
 func main() {
-	// - Use OS stdout/stderr
-	// - Only show messages that are critical or standard.
-	// - Custom prefix, prepended to each message before the timestamp.
-	logger := loggy.New(os.Stdout, os.Stderr, "myPrefix", loggy.LevelCritical)
-	
-	// Send a standard message to stdout.
-	logger.Std("hello!")
-	
-	// - Use custom stdout/stderr
-	// - Only show messages that are information, warnings, critical, or standard.
-	stdout := bytes.NewBuffer([]byte{})
-	stderr := bytes.NewBuffer([]byte{})
-	logger = loggy.New(stdout, stderr, "", loggy.LevelInfo)
-	
-	// Send an error message, with the tag "error", to the custom stderr buffer.
-	logger.Critical("something went wrong!", "error")
+  // - Use OS stdout/stderr by default.
+  // - Only show messages that are critical or standard.
+  // - Custom prefix, prepended to each message before the timestamp.
+  options := loggy.Options{
+    Prefix: "~~~",
+    Threshold: loggy.LevelCritical,
+  }
+  logger, ctx := loggy.New(context.Background(), options)
 
-	// Send a debug message to the custom stdout buffer. This message will be ignored
-	// because of the provided threshold.
-	logger.Debug("get the fly swatter!")
+  // Send a standard message to stdout.
+  logger.Std(ctx, "hello!") // 2023-03-29T15:20:55-05:00 OUT main.main ~~~ hello!
+
+  // - Use custom stdout/stderr
+  // - Only show messages that are information, warnings, critical, or standard.
+  stdout := bytes.NewBuffer([]byte{})
+  stderr := bytes.NewBuffer([]byte{})
+  options = loggy.Options{
+    Out: stdout,
+    Err: stderr,
+    Threshold: loggy.LevelInfo,
+  }
+  logger, ctx = loggy.New(context.Background(), options)
+
+  // Send an error message, with the tag "error", to the custom stderr buffer.
+  err := errors.New("oops")
+  logger.Critical(ctx, "something went wrong!", err.Error())
+
+  // Send a debug message to the custom stdout buffer. This message will be ignored
+  // because of the provided threshold.
+  logger.Debug(ctx, "get the fly swatter!")
+
+  fmt.Println(stderr) // 2023-03-29T15:25:27-05:00 CRIT main.main something went wrong! oops
 }
 ```
 
